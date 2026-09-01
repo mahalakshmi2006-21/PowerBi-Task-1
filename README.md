@@ -1,49 +1,68 @@
-# PowerBi-Task-1
-# 📊 Power BI Task 1
+# Sample Superstore – Power Query Data Cleaning
 
-## 📌 Project Overview
+This project uses **Power Query (Power BI / Excel)** to clean and transform the classic *Sample Superstore* dataset, preparing it for analysis and dashboard building.
 
-This project is created using **Microsoft Power BI** as part of my Power BI learning and practice tasks.
+## 📁 Dataset
 
-The objective of this task is to work with data, create meaningful visualizations, and build an interactive Power BI report/dashboard.
+The raw data (`samplesuperstore`) contains order-level retail transaction records with fields such as:
 
-## 🛠️ Tools & Technologies
+- Row ID, Order ID, Order Date, Ship Date, Ship Mode
+- Customer ID, Customer Name
+- Product, Category, Sub-Category
+- Sales, Quantity, Discount, Profit
+- (and other standard Superstore columns)
 
-* **Power BI Desktop**
-* **Data Visualization**
-* **Data Analysis**
-* **Power BI Charts & Visuals**
+## 🖼️ Output Screenshot
 
-## 📂 Project File
+Power Query Editor showing the applied steps and cleaned output:
 
-* `PowerBI Task 1.pbix` – Power BI report file containing the dashboard and visualizations.
+![Power Query Steps Output](./screenshots/power_query_steps.png)
 
-## 📊 Key Features
+## 🔧 Transformations Applied (Power Query Steps)
 
-* Data analysis and visualization
-* Interactive charts and reports
-* Easy-to-understand dashboard
-* Visual representation of data
-* Power BI report development
+The following steps were applied in the Power Query Editor:
 
-## 🎯 Learning Outcome
+| Step | Description |
+|------|-------------|
+| **Source** | Loaded the raw dataset into Power Query |
+| **Promoted Headers** | Set the first row as column headers |
+| **Changed Column Type** | Set appropriate data types for initial columns |
+| **Changed Type** | Adjusted column types further for consistency |
+| **Trimmed Text** | Removed extra spaces from text fields |
+| **Inserted Year** | Added a new `Year` column extracted from `Order Date` |
+| **Inserted Month** | Added a new `Month` column extracted from `Order Date` |
+| **Inserted Quarter** | Added a new `Quarter` column using `Date.QuarterOfYear([Order Date])` |
 
-Through this task, I gained practical knowledge in:
+Example M code used for the Quarter column:
 
-* Creating Power BI reports
-* Importing and working with data
-* Creating different visualizations
-* Designing an interactive dashboard
-* Understanding data analysis concepts
+```m
+= Table.AddColumn(#"Inserted Month", "Quarter", each Date.QuarterOfYear([Order Date]), Int64.Type)
+```
 
-## 🚀 How to Open
+## 🎯 Purpose
 
-1. Download the `.pbix` file from this repository.
-2. Open it using **Power BI Desktop**.
-3. Explore the report and interact with the available visualizations.
+These date-based columns (Year, Month, Quarter) enable:
+- Time-series trend analysis (yearly/quarterly/monthly sales & profit)
+- Easier slicing and filtering in Power BI/Excel dashboards
+- Seasonality and growth pattern analysis
 
-## 👩‍💻 Author
+## 🛠️ Tools Used
 
-**Mahalakshmi**
+- **Power Query Editor** (Power BI Desktop / Excel)
+- Applied Steps panel for reproducible, auditable transformations
 
-BCA Graduate | Aspiring IT Professional
+## 🚀 How to Use
+
+1. Open the `.pbix` (Power BI) or `.xlsx` (Excel) file included in this repo.
+2. Go to **Transform Data** to view/edit the Power Query steps.
+3. Click **Close & Apply** to load the cleaned data into the model/report.
+
+## 📌 Next Steps
+
+- Build visuals (sales by quarter, profit by category, etc.)
+- Create measures using DAX for KPIs
+- Publish dashboard to Power BI Service
+
+---
+
+*Feel free to fork this repo and extend the transformations or dashboards.*
